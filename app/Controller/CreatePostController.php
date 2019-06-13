@@ -23,10 +23,13 @@ class CreatePostController implements ControllerInterface
                 $post->setContent($_POST['content']);
                 $post->setName($_POST['name']);
                 $postRepository = new Post();
-                $post = $postRepository->save($post);
                 $message = new Message();
-                $message->setMessage('Post créé !');
-                $message->setCode('success');
+                try {
+                    $post = $postRepository->save($post);
+                } catch (\Exception $e) {
+                    $message->setMessage($e->getMessage());
+                    $message->setCode('error');
+                }
                 $params = ['message' => $message];
             } else {
                 $message = new Message();
