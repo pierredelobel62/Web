@@ -30,6 +30,8 @@ class CreatePostController implements ControllerInterface
                     $message->setMessage($e->getMessage());
                     $message->setCode('error');
                 }
+                $message->setMessage('Post créé');
+                $message->setCode('success');
                 $params = ['message' => $message];
             } else {
                 $message = new Message();
